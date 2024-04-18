@@ -22,7 +22,6 @@ export default class MarkedPlugin extends Plugin {
 	}
 
 	async onload() {
-		console.log('Loading the Marked plugin.');
 
 		await this.loadSettings();
 
@@ -37,11 +36,13 @@ export default class MarkedPlugin extends Plugin {
 			checkCallback: this.openInMarked.bind(this)
 		});
 
-		this.addSettingTab(new MarkedSettingsTab(this.app, this));
-	}
+		this.addCommand({
+			id: 'open-vault-in-marked',
+			name: 'Open vault in Marked',
+			checkCallback: this.openVaultInMarked.bind(this)
+		});
 
-	onunload() {
-		console.log('Unloading the Marked plugin');
+		this.addSettingTab(new MarkedSettingsTab(this.app, this));
 	}
 
 	async resetRibbonIcon() { //Hat-tip to @liam for this elegant way of managing the plugin's ribbon button. The idea is to give the plugin the ribbon icon as an object to hold onto. Then, since the ribbon icons are a `HTMLElement`, you can `.detach()` them to remove them and re-add them, reassigning the object.
@@ -60,8 +61,23 @@ export default class MarkedPlugin extends Plugin {
 	}
 
 	doRibbonAction() {
-		this.openInMarked();
+		this.openInMarked(false);
 	};
+
+	async openVaultInMarked(checking: boolean) : Promise<boolean> {
+		if (!checking) {
+			const vaultAdapter = this.app.vault.adapter;
+			if (vaultAdapter instanceof FileSystemAdapter) {
+				const fileURL = encodeURI(vaultAdapter.getBasePath());
+				exec(`open x-marked://${fileURL}`);
+				new Notice(fileURL);
+			}
+			new Notice("Opened vault in Marked");
+			return true;
+		}
+
+		return false;
+	}
 
 	async openInMarked(checking: boolean) : Promise<boolean> {
 		const activeFile = this.app.workspace.getActiveFile();
