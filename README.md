@@ -16,4 +16,4 @@ Look it up in Obsidian's Community Plugins gallery and select "Install."
 
 ### Manually installing the plugin
 
-- Copy over `main.js` and `manifest.json` to your vault folder in the directory `VaultFolder/.obsidian/plugins/DEVONlink-obsidian/`.
+- Copy over `main.js` and `manifest.json` to your vault folder in the directory `VaultFolder/.obsidian/plugins/Marked-obsidian/`.
