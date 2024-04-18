@@ -11,6 +11,6 @@ File.open(manifest, 'w') { |f| f.puts content }
 
 `git commit -a -m "version bump"`
 `git push`
-`git release create #{new_ver} -m "v#{new_ver}"`
+`git release create "#{new_ver}" -m "v#{new_ver}"`
 `git pull`
-`gh release upload #{new_ver} main.ts manifest.json`
+`gh release upload "#{new_ver}" main.ts manifest.json`
