@@ -64,12 +64,12 @@ export default class MarkedPlugin extends Plugin {
 	};
 
 	async openInMarked() : Promise<boolean> {
-		let activeFile = this.app.workspace.getActiveFile();
+		const activeFile = this.app.workspace.getActiveFile();
 
 		if (activeFile) {
-			let vaultAdapter = this.app.vault.adapter;
+			const vaultAdapter = this.app.vault.adapter;
 			if (vaultAdapter instanceof FileSystemAdapter) {
-				let fileURL = encodeURI(vaultAdapter.getFullPath(activeFile.path));
+				const fileURL = encodeURI(vaultAdapter.getFullPath(activeFile.path));
 				exec(`open 'x-marked://${fileURL}'`);
 			}
 			new Notice("Opened in Marked.");
@@ -94,7 +94,7 @@ class MarkedSettingsTab extends PluginSettingTab {
 
 		containerEl.empty();
 
-		containerEl.createEl('h2', { text: 'Open in Marked Settings' });
+		containerEl.createEl('h2', { text: 'Open in Marked' });
 
 		new Setting(containerEl)
 			.setName('Ribbon button color')
