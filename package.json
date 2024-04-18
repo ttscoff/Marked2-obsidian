@@ -1,6 +1,6 @@
 {
   "name": "Marked-obsidian",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Open the current note in Marked 2.",
   "main": "main.js",
   "scripts": {
