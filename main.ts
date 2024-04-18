@@ -33,7 +33,7 @@ export default class MarkedPlugin extends Plugin {
 
 		this.addCommand({
 			id: 'open-indexed-note-in-marked',
-			name: 'Open indexed note in Marked',
+			name: 'Open note in Marked',
 			checkCallback: this.openInMarked.bind(this)
 		});
 
@@ -63,19 +63,21 @@ export default class MarkedPlugin extends Plugin {
 		this.openInMarked();
 	};
 
-	async openInMarked() : Promise<boolean> {
+	async openInMarked(checking: boolean) : Promise<boolean> {
 		const activeFile = this.app.workspace.getActiveFile();
 
-		if (activeFile) {
-			const vaultAdapter = this.app.vault.adapter;
-			if (vaultAdapter instanceof FileSystemAdapter) {
-				const fileURL = encodeURI(vaultAdapter.getFullPath(activeFile.path));
-				exec(`open 'x-marked://${fileURL}'`);
+		if (!checking) {
+			if (activeFile) {
+				const vaultAdapter = this.app.vault.adapter;
+				if (vaultAdapter instanceof FileSystemAdapter) {
+					const fileURL = encodeURI(vaultAdapter.getFullPath(activeFile.path));
+					exec(`open 'x-marked://${fileURL}'`);
+				}
+				new Notice("Opened in Marked.");
+				return true;
+			} else {
+				new Notice("No active pane. Try again with a note open.");
 			}
-			new Notice("Opened in Marked.");
-			return true;
-		} else {
-			new Notice("No active pane. Try again with a note open.");
 		}
 		return false;
 	};
