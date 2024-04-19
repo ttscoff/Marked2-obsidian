@@ -1,7 +1,7 @@
 {
 	"id": "marked-obsidian",
 	"name": "Open in Marked",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"minAppVersion": "1.5.12",
 	"description": "Open the current note/vault in Marked 2.",
 	"author": "ttscoff",
