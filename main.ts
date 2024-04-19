@@ -25,10 +25,11 @@ export default class MarkedPlugin extends Plugin {
 
 		await this.loadSettings();
 
-		this.ribbonIcon = this.addRibbonIcon(this.settings.MarkedIconColor, 'Marked', () => {
-			this.doRibbonAction();
-		});
-
+		if (Platform.isMacOS) {
+			this.ribbonIcon = this.addRibbonIcon(this.settings.MarkedIconColor, 'Marked', () => {
+				this.doRibbonAction();
+			});
+		}
 
 		this.addCommand({
 			id: 'open-indexed-note-in-marked',
@@ -42,7 +43,9 @@ export default class MarkedPlugin extends Plugin {
 			checkCallback: this.openVaultInMarked.bind(this)
 		});
 
-		this.addSettingTab(new MarkedSettingsTab(this.app, this));
+		if (Platform.isMacOS) {
+			this.addSettingTab(new MarkedSettingsTab(this.app, this));
+		}
 	}
 
 	async resetRibbonIcon() { //Hat-tip to @liam for this elegant way of managing the plugin's ribbon button. The idea is to give the plugin the ribbon icon as an object to hold onto. Then, since the ribbon icons are a `HTMLElement`, you can `.detach()` them to remove them and re-add them, reassigning the object.
