@@ -1,6 +1,6 @@
 ## Marked 2 - Integrate Obsidian with Marked
 
-Open or the current note or monitor current vault in Marked 2.
+Open or the current note or monitor current vault in [Marked 2](https://marked2app.com).
 
 ### How to use
 
