@@ -1,5 +1,7 @@
 ## Marked 2 - Integrate Obsidian with Marked
 
+[![Validate Plugin Entry](https://github.com/obsidianmd/obsidian-releases/actions/workflows/validate-plugin-entry.yml/badge.svg)](https://github.com/obsidianmd/obsidian-releases/actions/workflows/validate-plugin-entry.yml)
+
 Open or the current note or monitor current vault in [Marked 2](https://marked2app.com).
 
 ### How to use
