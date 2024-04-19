@@ -1,5 +1,5 @@
 import { App, Notice, Plugin, PluginManifest, PluginSettingTab, Setting, TFile, FileSystemAdapter, addIcon } from 'obsidian';
-const { exec } = require('child_process')
+import { exec } from 'child_process';
 
 addIcon('Marked-logo-neutral', `<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="100%" height="100%" viewBox="0 0 78 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><use xlink:href="#_Image1" x="3" y="9" width="73px" height="38px"/><defs><image id="_Image1" width="73px" height="38px" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAmCAYAAACI0bZTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAFI0lEQVRogd3aSYhcRRgH8F/39EwWoyYjmphETKJEDUbEBdSIC+LBg5KbRnEBieBNBG9eRM+elIiIGoLx4AYqRKMe1IBLcEMUFYwal7jEmH2WzEx7qPeY7tev+7166YnBPxTT3dP176/+31dffVX1BsThJJyOizALExhHM4JjNk7BBVia9J9MuMqihgVYnvA0MYWxCI6+YxjPYgcOYRSH8RM2CYMuQh134xP8k3CMYA+24+qStqzC6/glsSG15Xs8KjjhmKGGS/EYDgoDmhC8lrbJxMDtmNuFZxj34gtB4HHB6ynHlGnBbu7CMYjrsRn7k+9OZmw5ktj5HE6oNOIIDOJ8vIUDggitg8prY3hFEFbydz4eEIQ5qFPgbBvHzxhqsWU2LsdHiS2jBRyp4Pf1S4w83IT3hCmQ9XiRcfuwRMgzz2CnfI/3apO4P7FlvRB9+4UoKWvLEUHUvmMVtggeH4swqLVN4G3sFqKvKHK6ib0L3yQcYxU40qhMo7ovGMJniVFVDGo17LC4yMmLpENCNByNLU2c2E+RlgnzuEr0HM9tZb8EquNcoebpa3j+x2hicb/I6sL8b/aL8DhBDYv6RVYXEuXX/n9CLegXUV1YQW7BB0LibM1NVZH2H8G3CW9VjqZQP41G9u9W3GYxIDLdrMCNuA6XCeV/TEIfw5d4CFcJTlggRGvMCrcLz+MuYb8IL0RwTOGRHuOcgxuw1XSxuw9PCAtZFDaKE2mrTo8MC7VTWY6D8lemDyM4msKeMg8LE679pjfX6QZ7FH/gKS17wEZXeaYJY1a9uTqnaUPwXFnUu3y+LIKDUP1ncY5QNC8SRMiObUDYrK9L7FiPyW4GpZgVadjynM8Glc8PBEMHM5/VTE+7shjO+exhwfFzdHf+QPL/dbid7l5L/xcrUt6yOxDJkSbSVtQq2JIVYrWQb8scpdQSO26lWKSi6ZiHbBTMEbdS1nM4hsQXu3Xt47tDGE/R7EnRwDWYVSRSlQOsbJ+TxA2wpjOHzRNfkjS0H7usUV6g1I46zu7VKS/syxBnD7zKnFpmke0Tu4AQbG91WDroGAwo6FTT7omyODXzPi+Z90JTZ9KdV8GOhvZp+3EFjinsKBIpVvmm4PVWrIjkoFOkhvjplrV/o/jK/32MFE23mPqG/BUxNhprOqMxJuGmGMj0+RRvRHJsVvDDVUoAOhN3lalycuZ9rLMIImVX5wfxe8n+L+NpZkakbOKuckKY5aiyox/S6bDPcTF+0H36juNV3Ca5CywSqUrizkbBaRU48la3WOSJBL8Jl6t3CicfqVhjwnXUGqzVcurQq1jM29uUQXZASytwZHNStrgsg7RqzsNeYQO8SdCgYfrSoQO9RKpS39A5vaqsbtnfrlL515QTd0LBFXuv6TY/xqIunHXVojGvBKiCKhHYgV4i7VTtdHJPy+tZFTnmaRd3pAJHU7jiOmr0Eulv4bAsFttaXldJ/Clao6dKtbxX+eW+Mup4Tdxp4FfaB9dQ7T5vVHskDeG7SI4t4gvQSjgDv5Y0agRX5HC8WbJ/a3sph+cS4ci1TP8f9fHerQyuFaZe0bn02i79V4t7LmBSeJIkD/coFmq3cA50zLEYj3cxaoveV8oNvNOlb157V+9VaaVQEef13SA8iddXxC7PC3GhUAuNCpeaO0r2exFXFnxvm3DEurcE51k4T9jXHRC2HDOeqGcaDTyJv7Q/eTIpTJENjtPnEY61UekxyBKcKYi0U9hP/alaTTXj+BdDV2lbthw25AAAAABJRU5ErkJggg=="/></defs></svg>`);
 
@@ -76,14 +76,14 @@ export default class MarkedPlugin extends Plugin {
 			return true;
 		}
 
-		return false;
+		return Platform.isMacOS;
 	}
 
 	async openInMarked(checking: boolean) : Promise<boolean> {
 		const activeFile = this.app.workspace.getActiveFile();
 
 		if (!checking) {
-			if (activeFile) {
+			if (activeFile !== undefined) {
 				const vaultAdapter = this.app.vault.adapter;
 				if (vaultAdapter instanceof FileSystemAdapter) {
 					const fileURL = encodeURI(vaultAdapter.getFullPath(activeFile.path));
@@ -91,11 +91,9 @@ export default class MarkedPlugin extends Plugin {
 				}
 				new Notice("Opened in Marked.");
 				return true;
-			} else {
-				new Notice("No active pane. Try again with a note open.");
 			}
 		}
-		return false;
+		return Platform.isMacOS;
 	};
 }
 
@@ -111,8 +109,6 @@ class MarkedSettingsTab extends PluginSettingTab {
 		const { containerEl } = this;
 
 		containerEl.empty();
-
-		containerEl.createEl('h2', { text: 'Open in Marked' });
 
 		new Setting(containerEl)
 			.setName('Ribbon button color')
