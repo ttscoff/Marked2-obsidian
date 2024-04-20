@@ -21,6 +21,8 @@ p_content.sub!(/"version": ".*?"/, "\"version\": \"#{new_ver}\"")
 File.open(manifest, 'w') { |f| f.puts content }
 File.open(package, 'w') { |f| f.puts p_content }
 
+`npm run build`
+
 `git commit -a -m "version bump"`
 `git push`
 `gh release create #{new_ver} --generate-notes manifest.json main.js`
