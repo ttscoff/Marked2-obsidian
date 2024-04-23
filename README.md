@@ -20,4 +20,4 @@ Search Obsidian's Community Plugins gallery for "marked" and select "Install."
 
 ### Manually installing the plugin
 
-- Copy over `main.js` and `manifest.json` to your vault folder in the directory `VaultFolder/.obsidian/plugins/Marked-obsidian/`.
+- Copy over `main.js` and `manifest.json` from [the latest release](https://github.com/ttscoff/Marked2-obsidian/releases/latest) to your vault folder in the directory `VaultFolder/.obsidian/plugins/Marked-obsidian/`.
